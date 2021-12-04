@@ -147,8 +147,8 @@ EcrireTexte(500,100,"Choisissez l'image avec laquelle vous voulez jouer :",2);
 
 	
 ChargerImage("aj1.png",200,300,0,0,300,169);	
-ChargerImage("aj1.png",200,300,0,0,300,169);	
-ChargerImage("aj1.png",200,300,0,0,300,169);	
+ChargerImage("Kangoo.png",600,300,0,0,300,202);	
+ChargerImage("Vegeta.png",1000,300,0,0,300,169);	
 	
     do{
 		while(!SourisCliquee());
@@ -157,13 +157,23 @@ ChargerImage("aj1.png",200,300,0,0,300,169);
 		 	if( _X > 200 && _X < 500 && _Y > 300 && _Y < 469){
 			image = 1;
 			choix_img =1;
-EcrireTexte(800,600,"1er image",2);
+EcrireTexte(500,600,"600 balles sur Stockx (Obsidian)",2);
+																											 }
+		 	if( _X > 600 && _X < 900 && _Y > 300 && _Y < 502){
+			image = 2;
+			choix_img =1;
+EcrireTexte(700,600,"Miguel",2);
+																											 }
+		 	if( _X > 1000 && _X < 1300 && _Y > 300 && _Y < 469){
+			image = 3;
+			choix_img =1;
+EcrireTexte(600,600,"L'Eternel 2nd",2);
 																											 }
 																				
 																											 }
 		}while(choix_img!=1);
 
-
+return image;
 
 										}
 int main(void)  {
