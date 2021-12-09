@@ -20,9 +20,9 @@ int main(int argc, char * argv[]){
 		int taille,taille_lignes;
 		scanf("%d %d",&taille,&taille_lignes);
 	  InitialiserGraphique();
-    CreerFenetre(600,600,1000,1000);
-		for(i=0;i<h;i+=(h/taille)){
-      for(j=0;j<l;j+=(l/taille_lignes)){
+    CreerFenetre(400,200,1000,800);
+		for(i=0;(i+(h%taille))<h;i+=(h/taille)){
+      for(j=0;(j+(l%taille_lignes))<l;j+=(l/taille_lignes)){
         ChargerImage(image_selectionnee[choix-1],posx,posy,j,i,(l/taille_lignes),(h/taille));
 				printf("posx=%d , posy=%d , j=%d , i=%d , l=%d , h=%d\n",posx,posy,j,i,(l/taille_lignes),(h/taille));
 				posx+=((l/taille_lignes)+5);
