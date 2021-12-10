@@ -50,6 +50,12 @@ if(Touche() == 0XFF51 ){
 	CopierZone(0,1,0,0,1000,1000,0,0);
 	CopierZone(0,0,tab[0][1],tab[0][2],l/taille_lignes,h/taille,tab[1][1],tab[1][2]);
 	CopierZone(1,0,tab[1][1],tab[1][2],l/taille_lignes,h/taille,tab[0][1],tab[0][2]);
+keep_x= tab[0][1];                                                              
+keep_y= tab[0][2];
+tab[0][1]=tab[1][1];
+tab[0][2]=tab[1][2];
+tab[1][1]=keep_x;
+tab[1][2]=keep_y;
 
 
 }

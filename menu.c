@@ -168,18 +168,21 @@ ChargerImage("Vegeta.png",1000,300,0,0,300,169);
 			image = 1;
 			choix_img =1;
 EcrireTexte(800,600,"Air jordan1",2);
+printf("1");
 																											 }
 							
 		 	if( _X > 600 && _X < 900 && _Y > 290 && _Y < 492){
-			image = 1;
+			image = 2;
 			choix_img =1;
 EcrireTexte(800,600,"Miguel",2);
+printf("2");
 																											 }
 
-		 	if( _X > 1000 && _X < 1300 && _Y > 300 && _Y < 469){
-			image = 1;
+		 	if( _X >1000 && _X < 1300 && _Y > 300 && _Y < 469){
+			image = 3;
 			choix_img =1;
 EcrireTexte(800,600,"Eternel 2nd",2);
+printf("3");
 																											 }
 
 
@@ -187,7 +190,7 @@ EcrireTexte(800,600,"Eternel 2nd",2);
 																											 }
 
 		}while(choix_img!=1);
-
+return image;
 
 
 										}
