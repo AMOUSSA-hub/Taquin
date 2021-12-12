@@ -6,11 +6,133 @@
 #define Taille_EcranY 800
 #include <time.h>
 
+void deplacement_clavier(int h,int l, int taille, int taille_lignes,int tab[][4],int* x,int* y,int posc,int posl,int matrice[][taille_lignes]){
+	int case_blanche[2]={*x,*y};//Sauvegarder posx et posy de la case blanche
+	unsigned int entree;//Savoir ce que l'utilisateur envoie comme touche pou pouvoir bouger les cases
+	int a=0,d,test;
+	int verification[taille][taille_lignes];
+	int col,lign,ite=0;
+	/*for (lign=0;lign<taille;lign++){
+		for (col=0;col<taille_lignes;col++){
+			ite++;
+			verification[lign][col]=ite;
+		}
+	}*/
+	//char compteur[100]="0";
+	//Correspondance : up=0XFF52; down=0XFF54; right=0XFF53; left=0XFF51
+	//test = memcmp(matrice,verification,sizeof(&matrice));
+	while(a==0){
+		entree = Touche();//Affectation de la touche à la variable entree
+		//test = memcmp(matrice,verification,sizeof(&matrice));
+		if (entree == 0XFF52 && (case_blanche[1]+((h/taille)+5))<=tab[taille*taille_lignes-1][2]){//condition pour deplacement et non depacement des limites
+			CopierZone(0,1,0,0,1000,1000,0,0);                                                                                                                               
+			CopierZone(0,0,case_blanche[0],case_blanche[1],l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]+((h/taille)+5));//Changement de case blanche avec la case voulue
+			CopierZone(1,0,case_blanche[0],case_blanche[1]+((h/taille)+5),l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]);//Changement de la case avec l'ancienne case blanche
+			case_blanche[1]+=((h/taille)+5);//enregistrement de la nouvelle position de la case blanche
+			//Verification
+			d = matrice[posc][posl];
+		  	matrice[posc][posl]=matrice[posc+1][posl]; // on deplace les valeurs de la matrice pour pouvoir verifier la position de chaque case et ainsi determiner la position gagnante
+		  	matrice[posc+1][posl]=d;
+		  	posc+=1;
+			//compteur++;
+		}else if (entree == 0XFF54 && (case_blanche[1]-((h/taille)+5))>=tab[0][2]){
+			CopierZone(0,1,0,0,1000,1000,0,0);                                                                                                                                 
+			CopierZone(0,0,case_blanche[0],case_blanche[1],l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]-((h/taille)+5));
+			CopierZone(1,0,case_blanche[0],case_blanche[1]-((h/taille)+5),l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]);
+			case_blanche[1]-=((h/taille)+5);
+			d = matrice[posc][posl];
+		  	matrice[posc][posl]=matrice[posc-1][posl];
+		  	matrice[posc-1][posl]=d;
+		  	posc-=1;
+			//compteur++;
+		}else if (entree == 0XFF51 && case_blanche[0]+((l/taille_lignes)+5) <= tab[taille*taille_lignes-1][1]){
+			CopierZone(0,1,0,0,1000,1000,0,0);
+		  	CopierZone(0,0,case_blanche[0],case_blanche[1],l/taille_lignes,h/taille,case_blanche[0]+((l/taille_lignes)+5),case_blanche[1]);
+		  	CopierZone(1,0,case_blanche[0]+((l/taille_lignes)+5),case_blanche[1],l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]);
+		  	case_blanche[0]+=((l/taille_lignes)+5);
+		  	d = matrice[posc][posl];
+		  	matrice[posc][posl]=matrice[posc][posl+1];
+		  	matrice[posc][posl+1]=d;
+		  	posl+=1;
+		  	//compteur++;
+		}else if (entree == 0XFF53 && case_blanche[0]-((l/taille_lignes)+5) >= tab[0][1]){
+			CopierZone(0,1,0,0,1000,1000,0,0);
+		  	CopierZone(0,0,case_blanche[0],case_blanche[1],l/taille_lignes,h/taille,case_blanche[0]-((l/taille_lignes)+5),case_blanche[1]);
+		  	CopierZone(1,0,case_blanche[0]-((l/taille_lignes)+5),case_blanche[1],l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]);
+		  	case_blanche[0]-=((l/taille_lignes)+5);
+		  	d = matrice[posc][posl];
+		  	matrice[posc][posl]=matrice[posc][posl-1];
+		  	matrice[posc][posl-1]=d;
+		  	posl-=1;
+		  	//compteur++;
+		}else if (entree == 0xff80){
+			a = 1;
+		}	
+	}
+}
+int melange_aleatoire(int h,int l, int taille, int taille_lignes,int tab[][4],int* x,int* y,int posc,int posl,int matrice[][taille_lignes]){
+	int alea,b;//Gestion des variables pour l'aléatoire du mélange
+	int case_blanche[2]={tab[0][1],tab[0][2]};//Sauvegarder posx et posy de la case blanche
+	int col,lign,ite=0,d;
+	for (lign=0;lign<taille;lign++){
+		for (col=0;col<taille_lignes;col++){
+			ite++;
+			matrice[lign][col]=ite;
+		}
+	}
+	srand (time(NULL));
+	for (b=0;b <= 200;b++){
+		sleep(0,6);
+		alea =rand()%(5-1+1)+1;
+		if (alea == 1 && (case_blanche[1]+((h/taille)+5))<=tab[taille*taille_lignes-1][2]){//condition pour deplacement et non depacement des limites HAUT
+			CopierZone(0,1,0,0,1000,1000,0,0);                                                                                                                             
+			CopierZone(0,0,case_blanche[0],case_blanche[1],l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]+((h/taille)+5));//Changement de case blanche avec la case voulue
+			CopierZone(1,0,case_blanche[0],case_blanche[1]+((h/taille)+5),l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]);//Changement de la case avec l'ancienne case blanche
+			case_blanche[1]+=((h/taille)+5);//enregistrement de la nouvelle position de la case blanche
+			d = matrice[posc][posl];
+		  	matrice[posc][posl]=matrice[posc+1][posl]; // on deplace les valeurs de la matrice pour pouvoir verifier la position de chaque case et ainsi determiner la position gagnante
+		  	matrice[posc+1][posl]=d;
+		  	posc+=1;
+
+		}else if (alea == 2 && (case_blanche[1]-((h/taille)+5))>=tab[0][2]){//BAS
+			CopierZone(0,1,0,0,1000,1000,0,0);                                                                                                                                 
+			CopierZone(0,0,case_blanche[0],case_blanche[1],l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]-((h/taille)+5));
+			CopierZone(1,0,case_blanche[0],case_blanche[1]-((h/taille)+5),l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]);
+			case_blanche[1]-=((h/taille)+5);
+			d = matrice[posc][posl];
+		  	matrice[posc][posl]=matrice[posc-1][posl];
+		  	matrice[posc-1][posl]=d;
+		  	posc-=1;
+		}else if (alea == 3 && case_blanche[0]+((l/taille_lignes)+5) <= tab[taille*taille_lignes-1][1]){//GAUCHE
+			CopierZone(0,1,0,0,1000,1000,0,0);
+		  	CopierZone(0,0,case_blanche[0],case_blanche[1],l/taille_lignes,h/taille,case_blanche[0]+((l/taille_lignes)+5),case_blanche[1]);
+		  	CopierZone(1,0,case_blanche[0]+((l/taille_lignes)+5),case_blanche[1],l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]);
+		  	case_blanche[0]+=((l/taille_lignes)+5);
+		  	d = matrice[posc][posl];
+		  	matrice[posc][posl]=matrice[posc][posl+1];
+		  	matrice[posc][posl+1]=d;
+		  	posl+=1;
+		}else if (alea == 4 && case_blanche[0]-((l/taille_lignes)+5) >= tab[0][1]){//DROITE
+			CopierZone(0,1,0,0,1000,1000,0,0);
+		  	CopierZone(0,0,case_blanche[0],case_blanche[1],l/taille_lignes,h/taille,case_blanche[0]-((l/taille_lignes)+5),case_blanche[1]);
+		  	CopierZone(1,0,case_blanche[0]-((l/taille_lignes)+5),case_blanche[1],l/taille_lignes,h/taille,case_blanche[0],case_blanche[1]);
+		  	case_blanche[0]-=((l/taille_lignes)+5);
+		  	d = matrice[posc][posl];
+		  	matrice[posc][posl]=matrice[posc][posl-1];
+		  	matrice[posc][posl-1]=d;
+		  	posl-=1;
+		}
+	}
+	*x=case_blanche[0];
+	*y=case_blanche[1];
+}
 
 void decoupage_image(int image,int ligne, int colonne,int controle ){
 		int posx=150,posy=100,i,j=0;
 		int l,h,choix;
 		char *image_selectionnee[16]={("luffy_grand.png"),("Kangoo.jpg"),("Vegeta.jpg")};
+		int x,y;//Variable pour l'aléatoire
+		int posc,posl;
 		choix = image;
 		if (choix == 1){ 
 		l=299;
@@ -26,6 +148,7 @@ void decoupage_image(int image,int ligne, int colonne,int controle ){
 		taille = ligne;
 		taille_lignes = colonne;
 		int tab[taille*taille_lignes-1][4]; 
+		int matrice[taille][taille_lignes];
 	//	int pos_origine[taille*taille_lignes-1][2]; 
 	  InitialiserGraphique();
 		CreerFenetre(100,100,Taille_EcranX,Taille_EcranY);
@@ -57,6 +180,10 @@ void decoupage_image(int image,int ligne, int colonne,int controle ){
     EffacerEcran(CouleurParNom("white"));
 		CopierZone(10,0,0,0,l/taille_lignes,h/taille,150,100);
 		ChoisirEcran(0);
+
+
+
+if (choix_deplacement==2){
 int recherche,case_cliquee,case_cliquee_melange,keep_x,keep_y,bravo,direction,coup_melange=0;
 int recherche_melange,keep_x_melange,keep_y_melange;
 int case_inconnu[1];
@@ -297,9 +424,20 @@ if( verif_victoire == num_case){
 
 //EffacerEcran(CouleurParNom("white"));
 //EcrireTexte(700,400,"Bravo vous avez réussi",2);
+}
+		
+		
 
-		
-		
+if (choix_deplacement == 1){
+
+melange_aleatoire(h,l,taille,taille_lignes,tab,&x,&y,posc,posl,matrice);//Appel de la fonction qui mélange les cases. Utilisation de pointeur pour gérer pluiseurs changement de valeurs
+    deplacement_clavier(h,l,taille,taille_lignes,tab,&x,&y,posc,posl,matrice); // Appel de la fonction pour deplacer les cases. On reprend la position de la case blanche pour pouvoir la déplacer.	
+}
+
+
+
+
+
 
 }
 
