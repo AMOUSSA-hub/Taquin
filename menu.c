@@ -2,8 +2,6 @@
 #include<graph.h>
 #include<stdio.h>
 #include"menu.h"
-#define tx 1600
-#define ty 800
 
 
 int selection_lignes(){
