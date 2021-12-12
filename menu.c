@@ -9,7 +9,6 @@
 int selection_lignes(){
 	int a, i,y,x,c,lignes,choix_l = 0; 
 	/*affiche le menu pour sélectionner le nombre de ligne du taquin*/
-		CreerFenetre(50,100,tx,ty);
    	
 		for(c=160; c<=510; c = c +70){
 		
@@ -71,6 +70,7 @@ int selection_lignes(){
 		
 		 }while(choix_l!=1);
 
+EffacerEcran(CouleurParNom("white"));
 return lignes;
 		  											 													 }
 	
@@ -143,6 +143,8 @@ EcrireTexte(500,100,"Choisissez le nombre de colonne de votre Taquin:",2);
 																											 }
 
 			}while(choix_c!=1);
+			
+EffacerEcran(CouleurParNom("white"));
 			return colonnes;
 
 																											 }
@@ -156,7 +158,7 @@ int image,choix_img;
 EcrireTexte(500,100,"Choisissez l'image avec laquelle vous voulez jouer :",2);
 
 	
-ChargerImage("aj1.png",200,300,0,0,300,169);	
+ChargerImage("luffy.png",250,290,0,0,140,210);	
 ChargerImage("Kangoo.png",600,290,0,0,300,202);	
 ChargerImage("Vegeta.png",1000,300,0,0,300,169);	
 	
@@ -164,36 +166,30 @@ ChargerImage("Vegeta.png",1000,300,0,0,300,169);
 		while(!SourisCliquee());
 		{
 
-		 	if( _X > 200 && _X < 500 && _Y > 300 && _Y < 469){
+		 	if( _X > 200 && _X <  390 && _Y > 260 && _Y < 500){
 			image = 1;
 			choix_img =1;
-EcrireTexte(800,600,"Air jordan1",2);
-printf("1");
 																											 }
 							
 		 	if( _X > 600 && _X < 900 && _Y > 290 && _Y < 492){
 			image = 2;
 			choix_img =1;
-EcrireTexte(800,600,"Miguel",2);
-printf("2");
 																											 }
 
-		 	if( _X >1000 && _X < 1300 && _Y > 300 && _Y < 469){
+		 	if( _X > 1000 && _X < 1300 && _Y > 300 && _Y < 469){
 			image = 3;
 			choix_img =1;
-EcrireTexte(800,600,"Eternel 2nd",2);
-printf("3");
 																											 }
 
 
 
-																											 }
+													 														 }
 
-		}while(choix_img!=1);
-return image;
+		}while(choix_img!=1); 
+		
+EffacerEcran(CouleurParNom("white"));
+		return image;
 
 
 										}
-
-
-
+			

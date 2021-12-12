@@ -2,19 +2,38 @@
 #include<graph.h>
 #include<stdio.h>
 #include"menu.h"
-#define tx 1600
-#define ty 800
+#include"partie.h"
+#define Taille_EcranX 1600
+#define Taille_EcranY 800
+
+/*
+int selection_controle(void){
 
 
-	
+EcrireTexte(500,100,"Choisissez la manière dont vous souhaitez jouer:",2); 
+DessinerRectangle(800,200,150,150);
+DessinerRectangle(1000,200,150,150);
+
+
+
+ EffacerEcran(CouleurParNom("white"));
+
+
+}*/
 int main(void)  {
 		
 InitialiserGraphique();
-selection_lignes();
-EffacerEcran(CouleurParNom("white"));
-selection_colonnes();
-EffacerEcran(CouleurParNom("white"));
-selection_image();						
+CreerFenetre(100,100,Taille_EcranX,Taille_EcranY);
+int a, b , c,d;
+
+//a = selection_controle();
+b = selection_image();
+c = selection_lignes();
+d = selection_colonnes();						
+
+decoupage_image(b ,c , d);
+
+
 Touche();		
 		
 FermerGraphique();		
