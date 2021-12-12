@@ -191,3 +191,29 @@ EffacerEcran(CouleurParNom("white"));
 
 										}
 			
+int selection_mode(){
+    int i,x,y,choix_deplacement=0,choix;
+    EcrireTexte(500,100,"Choisissez le mode de déplacement :",2);
+
+    DessinerRectangle(800,160,70,70);
+    DessinerRectangle(800,230,70,70);
+    EcrireTexte(500,100,"Choisissez le nombre de ligne de votre Taquin:",2);
+    EcrireTexte(830,205,"Clavier",2);
+    EcrireTexte(830,275,"Souris",2);
+    do {
+        while(!SourisCliquee());{
+        /*case clavier ?*/    
+            if( _X > 800 && _X < 870 && _Y > 160 && _Y < 230){
+                choix_deplacement= 1;
+                choix++;
+             }
+        /*case souris ?*/    
+             if( _X > 800 && _X < 870 && _Y > 230 && _Y < 300){
+                choix_deplacement=2;
+                choix++;
+                }
+        }
+    }while(choix!=1);
+return choix_deplacement;
+}
+}
