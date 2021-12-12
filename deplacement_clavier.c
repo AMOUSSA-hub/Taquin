@@ -3,6 +3,9 @@
 #include<graph.h>
 #include<string.h>
 #include<time.h>
+#define Taille_EcranX 1600
+#define Taille_EcranY 800 
+
 void deplacement_clavier(int h,int l, int taille, int taille_lignes,int tab[][4],int* x,int* y,int posc,int posl,int matrice[][taille_lignes]){
 	int case_blanche[2]={*x,*y};//Sauvegarder posx et posy de la case blanche
 	unsigned int entree;//Savoir ce que l'utilisateur envoie comme touche pou pouvoir bouger les cases
@@ -132,8 +135,8 @@ int main(int argc, char * argv[]){
 	char *image_selectionnee[16]={("luffy_grand.png"),("Kangoo.jpg"),("Vegeta.jpg")};//Regroupement du chemin des images
 	scanf("%d",&choix);
 	if (choix == 1){
-		l=650;
-		h=366;//Luffy
+		l=299;
+		h=450;//Luffy
 	}else if(choix == 2){		//Adapatition des résolutions en fonction du choix de l'utilisateur
 		l=570;
 		h=384;//kangoo
@@ -146,8 +149,10 @@ int main(int argc, char * argv[]){
 	int tab[taille*taille_lignes-1][4]; 
 	int matrice[taille][taille_lignes];
 	InitialiserGraphique();
-	CreerFenetre(100,0,1100,900);
-	for(i=0;(i+(h%taille))<h;i+=(h/taille)){//Boucle principale pour decouper l'image, boucle pour les lignes
+	CreerFenetre(100,0,Taille_EcranX ,Taille_EcranY);
+
+        	ChargerImage(image_selectionnee[choix-1],1000,100,0,0,l,h);
+	 for(i=0;(i+(h%taille))<h;i+=(h/taille)){//Boucle principale pour decouper l'image, boucle pour les lignes
     	for(j=0;(j+(l%taille_lignes))<l;j+=(l/taille_lignes)){//Boucle pour les colonnes
         	ChargerImage(image_selectionnee[choix-1],posx,posy,j,i,(l/taille_lignes),(h/taille));
 			printf("posx=%d , posy=%d , j=%d , i=%d , l=%d , h=%d\n",posx,posy,j,i,(l/taille_lignes),(h/taille));//test à supprimer
@@ -158,7 +163,7 @@ int main(int argc, char * argv[]){
 			tab[num_case][4]=h/taille;
 			posx+=((l/taille_lignes)+5);
 			num_case++;
-      	}
+       	}
     	posy+=((h/taille)+5);
     	j=0;
     	posx=150;

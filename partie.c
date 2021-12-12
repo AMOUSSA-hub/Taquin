@@ -19,12 +19,17 @@ int posx=150,posy=100,i,j=0;
       l=480;
       h=270;//Vegeta
     }
-    int taille,taille_lignes,num_case=0;
+    
+		
+        	ChargerImage(image_selectionnee[choix-1],1000,100,0,0,l,h);
+		
+		int taille,taille_lignes,num_case=0;
     taille = lignes;
 		taille_lignes = colonnes;
-    int tab[taille*taille_lignes-1][4]; 
-    for(i=0;(i+( h%taille))<h;i+=(h/taille) ){
-      for(j=0;(j+(l%taille_lignes))<l;j+=(l/taille_lignes)){
+    int tab[taille*taille_lignes-1][4];
+ 	//	int pos_origine[taille*taille_lignes-1][2];
+    for(i=0;(i+( h%taillve))<h;i+=(h/taille) ){
+      for(j=0;(j+(l%taillve_lignes))<l;j+=(l/taille_lignes)){
         ChargerImage(image_selectionnee[choix-1],posx,posy,j,i,(l/taille_lignes),(h/taille));
         printf("posx=%d , posy=%d , j=%d , i=%d , l=%d , h=%d\n",posx,posy,j,i,(l/taille_lignes),(h/taille));
         tab[num_case][0]=num_case;
@@ -33,7 +38,12 @@ int posx=150,posy=100,i,j=0;
         tab[num_case][3]=l/taille_lignes;
         tab[num_case][4]=h/taille;
         
-        
+     pos_origine[num_case][0]=num_case;
+        pos_origine[num_case][1]=posx;
+        pos_origine[num_case][2]=posy;
+        tab[num_case][3]=l/taille_lignes;
+        tab[num_case][4]=h/taille;
+    
     
         posx+=((l/taille_lignes)+5);
    num_case++;                
@@ -48,7 +58,12 @@ int posx=150,posy=100,i,j=0;
     EffacerEcran(CouleurParNom("white"));
     CopierZone(10,0,0,0,l/taille_lignes,h/taille,150,100);
     ChoisirEcran(0);
- 
+int recherche,case_cliquee,case_cliquee_melange,keep_x,keep_y,bravo,direction,coup_melange=0;                                                                     
+int recherche_melange,keep_x_melange,keep_y_melange;
+int case_inconnu[1];
+int case_melange[1];
+srand(time(NULL));
+ /*Fonction de mélange*/ 
  
 }	
 
