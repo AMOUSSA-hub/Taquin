@@ -1,75 +1,69 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<graph.h>
-#include "partie.h"
+#include"partie.h"
+#define Taille_EcranX 1600
+#define Taille_EcranY 800
+#include <time.h>
 
-void decoupage_image(int image,int lignes,int colonnes){ 
-    
-int posx=150,posy=100,i,j=0;
-    int l,h,choix;
-    char *image_selectionnee[16]={("luffy_grand.png"),("Kangoo.jpg"),("Vegeta.jpg")};
-    choix = image;
-    if (choix == 1){ 
-    l=299;
-    h=450;//Luffy
-    }else if(choix == 2){
-    l=570;
-    h=384;//kangoo
-    }else if(choix == 3){
-      l=480;
-      h=270;//Vegeta
-    }
-    
-		
-        	ChargerImage(image_selectionnee[choix-1],1000,100,0,0,l,h);
-		
-		int taille,taille_lignes,num_case=0;
-    taille = lignes;
-		taille_lignes = colonnes;
-    int tab[taille*taille_lignes-1][4];
- 	//	int pos_origine[taille*taille_lignes-1][2];
-    for(i=0;(i+( h%taillve))<h;i+=(h/taille) ){
-      for(j=0;(j+(l%taillve_lignes))<l;j+=(l/taille_lignes)){
+
+void decoupage_image(int image,int ligne, int colonne,int controle ){
+		int posx=150,posy=100,i,j=0;
+		int l,h,choix;
+		char *image_selectionnee[16]={("luffy_grand.png"),("Kangoo.jpg"),("Vegeta.jpg")};
+		choix = image;
+		if (choix == 1){ 
+		l=299;
+		h=450;//Luffy
+		}else if(choix == 2){
+		l=570;
+		h=384;//kangoo
+		}else if(choix == 3){
+			l=480;
+			h=270;//Vegeta
+		}
+		int taille,taille_lignes, num_case=0;
+		taille = ligne;
+		taille_lignes = colonne;
+		int tab[taille*taille_lignes-1][4]; 
+	//	int pos_origine[taille*taille_lignes-1][2]; 
+	  InitialiserGraphique();
+		CreerFenetre(100,100,Taille_EcranX,Taille_EcranY);
+		for(i=0;(i+( h%taille))<h;i+=(h/taille) ){
+      for(j=0;(j+(l%taille_lignes))<l;j+=(l/taille_lignes)){
         ChargerImage(image_selectionnee[choix-1],posx,posy,j,i,(l/taille_lignes),(h/taille));
-        printf("posx=%d , posy=%d , j=%d , i=%d , l=%d , h=%d\n",posx,posy,j,i,(l/taille_lignes),(h/taille));
-        tab[num_case][0]=num_case;
-        tab[num_case][1]=posx;
-        tab[num_case][2]=posy;
-        tab[num_case][3]=l/taille_lignes;
-        tab[num_case][4]=h/taille;
-        
-     pos_origine[num_case][0]=num_case;
-        pos_origine[num_case][1]=posx;
-        pos_origine[num_case][2]=posy;
-        tab[num_case][3]=l/taille_lignes;
-        tab[num_case][4]=h/taille;
+				printf("posx=%d , posy=%d , j=%d , i=%d , l=%d , h=%d\n",posx,posy,j,i,(l/taille_lignes),(h/taille));
+				tab[num_case][0]=num_case;
+				tab[num_case][1]=posx;
+				tab[num_case][2]=posy;
+				tab[num_case][3]=l/taille_lignes;
+				tab[num_case][4]=h/taille;
+				
+			/*	pos_origine[num_case][0]=num_case;
+				pos_origine[num_case][1]=posx;
+				pos_origine[num_case][2]=posy;
+				*/
+
+				posx+=((l/taille_lignes)+5);
+				num_case++;
     
-    
-        posx+=((l/taille_lignes)+5);
-   num_case++;                
-                                   
-      }                            
-      posy+=((h/taille)+5);        
-      j=0;                         
-      posx=150;                    
-    }                              
-                                   
-    ChoisirEcran(10);              
+			}  
+      posy+=((h/taille)+5);
+      j=0;
+			posx=150;
+    }
+
+		ChoisirEcran(10);
     EffacerEcran(CouleurParNom("white"));
-    CopierZone(10,0,0,0,l/taille_lignes,h/taille,150,100);
-    ChoisirEcran(0);
-int recherche,case_cliquee,case_cliquee_melange,keep_x,keep_y,bravo,direction,coup_melange=0;                                                                     
+		CopierZone(10,0,0,0,l/taille_lignes,h/taille,150,100);
+		ChoisirEcran(0);
+int recherche,case_cliquee,case_cliquee_melange,keep_x,keep_y,bravo,direction,coup_melange=0;
 int recherche_melange,keep_x_melange,keep_y_melange;
 int case_inconnu[1];
 int case_melange[1];
 srand(time(NULL));
-
-
-
-
-
- /*Fonction de mélange*/ 
- do{			
+ /*Fonction de mélange*/
+do{			
 		/*	haut=0
 			droite=1
 			bas=2
@@ -276,12 +270,14 @@ printf("%d   %d\n\n",tab[0][1],tab[0][2]);
  			}
  }
 
-int verif_victoire = 0,valide;
+//int verif_victoire = 0,valide;
 
 /*
 do{
+
 	if(tab[verif_victoire][1] == pos_origine[verif_victoire][1] && tab[verif_victoire][2] == pos_origine[verif_victoire][2]){
 				verif_victoire++;
+
 																																		}
 	else{
 		valide=0;
@@ -289,8 +285,11 @@ do{
 	
 	
 												}while( valide =! 0 && verif_victoire != num_case);
+
 printf("Ici");
+
 if( verif_victoire == num_case){
+
 	bravo =1;
 																}
 */
@@ -298,8 +297,11 @@ if( verif_victoire == num_case){
 
 //EffacerEcran(CouleurParNom("white"));
 //EcrireTexte(700,400,"Bravo vous avez réussi",2);
- 
-}	
+
+		
+		
+
+}
 
 
 
