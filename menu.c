@@ -181,7 +181,7 @@ ChargerImage("Vegeta.png",1000,300,0,0,300,169);
 
 
 
-													 														 }
+					 								 														 }
 
 		}while(choix_img!=1); 
 		
@@ -189,7 +189,7 @@ EffacerEcran(CouleurParNom("white"));
 		return image;
 
 
-										}
+				 						}
 			
 int selection_mode(){
     int i,x,y,choix_deplacement=0,choix;
@@ -197,23 +197,24 @@ int selection_mode(){
 
     DessinerRectangle(800,160,70,70);
     DessinerRectangle(800,230,70,70);
-    EcrireTexte(500,100,"Choisissez le nombre de ligne de votre Taquin:",2);
     EcrireTexte(830,205,"Clavier",2);
     EcrireTexte(830,275,"Souris",2);
     do {
-        while(!SourisCliquee());{
+        while(!SourisCliquee());
+				{
         /*case clavier ?*/    
-            if( _X > 800 && _X < 870 && _Y > 160 && _Y < 230){
+             if( _X > 800 && _X < 870 && _Y > 160 && _Y < 230){
                 choix_deplacement= 1;
-                choix++;
+                choix=1;
              }
         /*case souris ?*/    
-             if( _X > 800 && _X < 870 && _Y > 230 && _Y < 300){
+              if( _X > 800 && _X < 870 && _Y > 230 && _Y < 300){
                 choix_deplacement=2;
-                choix++;
+                choix=1;
                 }
         }
     }while(choix!=1);
-return choix_deplacement;
+		EffacerEcran(CouleurParNom("white"));
+		return choix_deplacement;
 }
-}
+

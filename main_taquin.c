@@ -24,14 +24,13 @@ int main(void)  {
 		
 InitialiserGraphique();
 CreerFenetre(100,100,Taille_EcranX,Taille_EcranY);
-int a, b , c,d;
+int a, b , c,d, e ;
 
-//a = selection_controle();
 b = selection_image();
 c = selection_lignes();
 d = selection_colonnes();						
-
-decoupage_image(b ,c , d);
+e = selection_mode();
+decoupage_image(b ,c , d , e);
 
 
 Touche();		

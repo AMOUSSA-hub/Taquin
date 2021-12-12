@@ -4,8 +4,8 @@
 
 
 
-void decoupage_image(int image, int ligne , int colonne);
-
+void decoupage_image(int image, int ligne , int colonne, int controle);
+int selection_mode();
 
 
 
