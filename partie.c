@@ -409,7 +409,7 @@ if( verif_victoire == num_case){
 
 if (controle == 1){
 
-melange_aleatoire(h,l,taille,taille_lignes,tab,*x,*y,posc,posl,matrice);//Appel de la fonction qui mélange les cases. Utilisation de pointeur pour gérer pluiseurs changement de valeurs
+melange_aleatoire(h,l,taille,taille_lignes,tab,&x,&y,posc,posl,matrice);//Appel de la fonction qui mélange les cases. Utilisation de pointeur pour gérer pluiseurs changement de valeurs
     deplacement_clavier(h,l,taille,taille_lignes,tab,&x,&y,posc,posl,matrice); // Appel de la fonction pour deplacer les cases. On reprend la position de la case blanche pour pouvoir la déplacer.	
 }
 
