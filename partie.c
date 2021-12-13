@@ -151,8 +151,6 @@ void decoupage_image(int image,int ligne, int colonne,int controle ){
 		taille_lignes = colonne;
 		int tab[taille*taille_lignes-1][4]; 
 		int matrice[taille][taille_lignes];
-	  InitialiserGraphique();
-		CreerFenetre(100,100,Taille_EcranX,Taille_EcranY);
 		for(i=0;(i+( h%taille))<h;i+=(h/taille) ){
       for(j=0;(j+(l%taille_lignes))<l;j+=(l/taille_lignes)){
         ChargerImage(image_selectionnee[choix-1],posx,posy,j,i,(l/taille_lignes),(h/taille));
