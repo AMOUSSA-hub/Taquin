@@ -20,7 +20,7 @@ main_taquin.o : menu.h  partie.h
  
 
 taquin : $(OFILES)
-	$(CC) $(CFLAGS) -o taquin $(OFILES)
+	$(CC) -o taquin $(OFILES)  $(CFLAGS) 
 
 
 clean :
