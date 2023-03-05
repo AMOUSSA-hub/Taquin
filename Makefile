@@ -1,6 +1,8 @@
+run: taquin
+	./taquin
 
 
-but : taquin
+
 
 OFILES = menu.o \
 				 partie.o\
@@ -26,8 +28,6 @@ taquin : $(OFILES)
 clean :
 	-rm -f $(OFILES) taquin
 
-run: 
-	./taquin
 
 
 .PHONY : but clean
